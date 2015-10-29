@@ -9,7 +9,8 @@
 #ifdef DEBUG
 #include <iostream>
 #endif
-// node id are assumed to be non-negative long int 
+// node id are assumed to be non-negative long int
+//template<class long> 
 class CCompGLA{
 	private:
 		//std::unordered_map<long, long> compIDLocal, compIDGlobal;

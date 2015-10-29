@@ -5,12 +5,16 @@
 #include <ctype.h>
 #include <ctime>
 //#define USE_LOCAL_FINALIZER
-#ifdef USE_LOCAL_FINALIZER
+/*#ifdef USE_LOCAL_FINALIZER
 #include "UnionFindGLA.h"
 #else
 #include "UnionFindGLA0.h"
 #define UnionFindGLA UnionFindGLA0
-#endif
+#endif*/
+#include "CCompGLA.h"
+
+#define UnionFindGLA CCompGLA
+
 bool ParseLine(const std::string& line, long& fromNode, long& toNode){
 	// here node id are integer numbers
 	int i = 0, i_old, len;

@@ -2,14 +2,15 @@
 #define _UNION_FIND_MAP_H_
 #include <unordered_map>
 // node id are assumed to be non-negative long int 
+//template<class long>
 class UnionFindMap{
 	private:
-		std::unordered_map<long, long>& parent; 
+		std::unordered_map<long, long> parent; 
 		std::unordered_map<long, long> sz;
 		const long NON_EXISTING_ID = -1;
 	public:
 		// constructor did nothing
-		UnionFindMap(std::unordered_map<long, long>& parent_):parent(parent_){}
+		UnionFindMap(){}
 
 		/*void Init(std::unordered_map<long, long>& parent){
 			this->parent = parent;
@@ -51,11 +52,20 @@ class UnionFindMap{
 			}
 		}
 
+		std::unordered_map<long, long>& GetUF(){
+			return parent;
+		}
+
 		// 
 		void FinalizeRoot(){
 			for(std::unordered_map<long, long>::iterator it = parent.begin(); it != parent.end(); ++ it){
 				it->second = Find(it->first);
 			}
+		}
+
+		void Clear(){
+			parent.clear();
+			sz.clear();
 		}
 
 };
