@@ -4,7 +4,7 @@
 #include <set>
 #include "UnionFindMap.h"
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #include <iostream>
@@ -15,8 +15,7 @@ class CCompGLA{
 	private:
 		//std::unordered_map<long, long> compIDLocal, compIDGlobal;
 		UnionFindMap localUF, globalUF;
-		std::unordered_map<long, std::set<long>> compOutput;
-		std::unordered_map<long, std::set<long>>::iterator CompIterator;
+		std::unordered_map<long, long>::iterator OutputIterator, EndOfOutput;
 		bool localFinalized = false;
 	public:
 		// constructor did nothing
@@ -83,24 +82,15 @@ class CCompGLA{
 		}
 
 		void Finalize(){
-			std::unordered_map<long, long>& compIDLocal = localUF.GetUF();
-			for(auto const& entry:compIDLocal){
-				if (compOutput.find(entry.second) != compOutput.end()){
-					compOutput[entry.second].insert(entry.first);
-				}else{
-					std::set<long> tmp;
-					tmp.insert(entry.first);
-					compOutput[entry.second] = tmp;
-				}
-			}
-
-			CompIterator = compOutput.begin();
+			OutputIterator = localUF.GetUF().begin();
+			EndOfOutput = localUF.GetUF().end();
 		}
 		
-		bool GetNextResult(std::set<long> &comp){
-			if (CompIterator != compOutput.end()){
-				comp.insert(CompIterator->second.begin(), CompIterator->second.end());
-				++ CompIterator;
+		bool GetNextResult(long& nodeID, long& compID){
+			if (OutputIterator != EndOfOutput){
+				nodeID = OutputIterator->first;
+				compID = OutputIterator->second;
+				++ OutputIterator;
 				return true;
 			}else{
 				return false;

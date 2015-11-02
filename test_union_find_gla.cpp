@@ -67,13 +67,13 @@ void FindConComps(std::string inputfile, UnionFindGLA& ConComps){
 int main(){
 	std::clock_t start;
 	UnionFindGLA ConComps1;
-	std::string inputfile1 = "web-googlesmallaa";
+	std::string inputfile1 = "web-googleaa";
 	start = std::clock();
 	FindConComps(inputfile1, ConComps1);
 	std::cout << "It takes " << (std::clock() - start)/(double)CLOCKS_PER_SEC << " secs \n";
 
 	UnionFindGLA ConComps2;
-	std::string inputfile2 = "web-googlesmallab";
+	std::string inputfile2 = "web-googleab";
 	start = std::clock();
 	FindConComps(inputfile2, ConComps2);
 	std::cout << "It takes " << (std::clock() - start)/(double)CLOCKS_PER_SEC << " secs \n";
@@ -84,12 +84,14 @@ int main(){
 
 	ConComps1.Finalize();
 	//
-	int ncomps = 0;
-	std::set<long> comp;
-	while (ConComps1.GetNextResult(comp)){
-		++ ncomps;
+	int numNodes = 0;
+	std::set<long> compIDAll;
+	long nodeID, compID;
+	while (ConComps1.GetNextResult(nodeID, compID)){
+		compIDAll.insert(compID);
+		++ numNodes;
 	}
-	std::cout << "There are " << ncomps << " connected components \n";
+	std::cout << "There are " << numNodes << " nodes, and " << compIDAll.size() << " connected components \n";
 
 	return 0;
 }
